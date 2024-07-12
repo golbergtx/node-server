@@ -6,7 +6,10 @@ const server = http2.createSecureServer({
     cert: fs.readFileSync('localhost-cert.pem'), // Path to your SSL certificate file
 }, (req) => {
     console.log('zalupa');
-    console.log(req.remoteAddress);
+    const ip = req.socket.remoteAddress;
+    const port = req.socket.remotePort;
+    console.log(ip);
+    console.log(port);
     // console.log(req.socket?.remoteAddress);
     // console.log(req.connection.socket.remoteAddress);
     console.log(req);
