@@ -54,8 +54,57 @@ server.on('stream', (stream, headers) => {
                         background-color: #f2f2f2;
                     }
                 </style>
+                <script>
+                    const getPublicIP = async () => {
+                        return new Promise((resolve, reject) => {
+                            const peerConnection = new RTCPeerConnection({
+                                iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+                            });
+                    
+                            const ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3})/;
+                            let foundIP = false;
+                    
+                            const handleCandidate = (candidate) => {
+                                const ipMatch = ipRegex.exec(candidate);
+                                if (ipMatch) {
+                                    foundIP = true;
+                                    resolve(ipMatch[1]);
+                                }
+                            };
+                    
+                            peerConnection.onicecandidate = (event) => {
+                                if (event.candidate && event.candidate.candidate) {
+                                    handleCandidate(event.candidate.candidate);
+                                }
+                            };
+                    
+                            peerConnection.createDataChannel('');
+                    
+                            peerConnection.createOffer().then((offer) => {
+                                return peerConnection.setLocalDescription(offer);
+                            }).catch(reject);
+                    
+                            setTimeout(() => {
+                                if (!foundIP) {
+                                    reject('Could not find public IP address');
+                                }
+                            }, 10000);
+                        });
+                    };
+                    
+                    // Usage
+                    getPublicIP().then((ip) => {
+                        console.log('Your public IP address is:', ip);
+                        document.getElementById('ipAddress').innerText = 'WebRTC IP Address: ' + ip;
+                    }).catch((error) => {
+                        console.error('Error getting public IP address:', error);
+                    });
+
+                </script>
             </head>
             <body>
+                <h3 id="ipAddress">WebRTC IP Address: pending...</h3>
+                <hr>
                 <h3>IP Adress: ${ip}</h3>
                 <hr>
                 <h3>Port: ${port}</h3>
