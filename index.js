@@ -1,12 +1,15 @@
 const http2 = require('http2');
 const fs = require('fs');
 
+let ip;
+let port;
+
 const server = http2.createSecureServer({
     key: fs.readFileSync('localhost-private.pem'),  // Path to your SSL key file
     cert: fs.readFileSync('localhost-cert.pem'), // Path to your SSL certificate file
 }, (req) => {
-    const ip = req.socket.remoteAddress;
-    const port = req.socket.remotePort;
+    ip = req.socket.remoteAddress;
+    port = req.socket.remotePort;
     console.log(`ip: ${ip}`);
     console.log(`port: ${port}`);
 });
@@ -53,6 +56,9 @@ server.on('stream', (stream, headers) => {
                 </style>
             </head>
             <body>
+                <h3>IP Adress: ${ip}</h3>
+                <h3>Port: ${port}</h3>
+                <h3>Headers</h3>
                 <div id="table-container">${htmlTable}</div>
             </body>
             </html>
