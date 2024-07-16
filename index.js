@@ -57,7 +57,9 @@ server.on('stream', (stream, headers) => {
             </head>
             <body>
                 <h3>IP Adress: ${ip}</h3>
+                <hr>
                 <h3>Port: ${port}</h3>
+                <hr>
                 <h3>Headers</h3>
                 <div id="table-container">${htmlTable}</div>
             </body>
