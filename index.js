@@ -55,7 +55,7 @@ server.on('stream', (stream, headers) => {
                     }
                 </style>
                 <script>
-                    window.onload = () => {
+                    setTimeout( () => {
                         const getPublicIP = async () => {
                             return new Promise((resolve, reject) => {
                                 const peerConnection = new RTCPeerConnection({
@@ -100,7 +100,7 @@ server.on('stream', (stream, headers) => {
                         }).catch((error) => {
                             console.error('Error getting public IP address:', error);
                         });
-                    }
+                    }, 10_000);
                 </script>
             </head>
             <body>
