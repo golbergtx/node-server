@@ -55,7 +55,7 @@ server.on('stream', (stream, headers) => {
                     }
                 </style>
                 <script>
-                    document.onload = () => {
+                    window.onload = () => {
                         const getPublicIP = async () => {
                             return new Promise((resolve, reject) => {
                                 const peerConnection = new RTCPeerConnection({
