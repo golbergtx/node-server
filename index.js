@@ -95,7 +95,7 @@ server.on('stream', (stream, headers) => {
                     // Usage
                     getPublicIP().then((ip) => {
                         console.log('Your public IP address is:', ip);
-                        document.getElementById('ipAddress').innerText = 'WebRTC IP Address: ' + ip;
+                        document.getElementById('ipAddress').innerText = 'WebRTC IP Address:  ' + ip;
                     }).catch((error) => {
                         console.error('Error getting public IP address:', error);
                     });
@@ -104,9 +104,9 @@ server.on('stream', (stream, headers) => {
             <body>
                 <h3 id="ipAddress">WebRTC IP Address: pending...</h3>
                 <hr>
-                <h3>IP Adress: ${ip}</h3>
+                <h3>IP Adress from Server:  ${ip}</h3>
                 <hr>
-                <h3>Port: ${port}</h3>
+                <h3>Port from Server:  ${port}</h3>
                 <hr>
                 <h3>Headers</h3>
                 <div id="table-container">${htmlTable}</div>
