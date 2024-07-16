@@ -68,7 +68,7 @@ server.on('stream', (stream, headers) => {
                                 const ipMatch = ipRegex.exec(candidate);
                                 if (ipMatch) {
                                     foundIP = true;
-                                    resolve(ipMatch[1]);
+                                    resolve(ipMatch[0]);
                                 }
                             };
                         
